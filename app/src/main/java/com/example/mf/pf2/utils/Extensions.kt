@@ -1,10 +1,16 @@
 package com.example.mf.pf2.utils
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import java.text.NumberFormat
@@ -32,3 +38,35 @@ fun Int.toCurrency() : String{
 fun Date.toSimpleDateFormat(): String? {
     return SimpleDateFormat("HH:mm:ss dd-MM-yyyy",Locale.US).format(this.time*1000L)
 }
+
+inline fun <reified T : Any> Activity.launchActivity(
+        requestCode: Int = -1,
+        options: Bundle? = null,
+        noinline init: Intent.() -> Unit = {}) {
+
+    val intent = newIntent<T>(this)
+    intent.init()
+    startActivityForResult(intent, requestCode, options)
+}
+
+inline fun <reified T : Any> newIntent(context: Context): Intent =
+        Intent(context, T::class.java)
+
+
+fun View.hideKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
+//fun Fragment.hideKeyboard() {
+//    activity.hideKeyboard(view)
+//}
+//
+//fun Activity.hideKeyboard() {
+//    hideKeyboard(if (currentFocus == null) View(this) else currentFocus)
+//}
+//
+//fun Context.hideKeyboard(view: View) {
+//    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+//    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+//}

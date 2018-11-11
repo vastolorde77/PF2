@@ -10,7 +10,13 @@
     <string name="menu_history">History</string>
     <string name="main_chart_title">Monthly Spendings</string>
     <string name="amount">amount</string>
+    <string name="amount_hint">amount (e.g 2500)</string>
     <string name="type">type</string>
     <string name="total_spendings">Total Spendings: </string>
     <string name="none">None</string>
+    <string name="work_in_progress">Work in Progress</string>
+    <string name="title_activity_add_spendings">Add a new transaction</string>
+    <string name="item_name">Item name</string>
+    <string name="add">Add</string>
+    <string name="placeholder_analytics">Placeholder for Analytics</string>
 </resources>

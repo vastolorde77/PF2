@@ -6,16 +6,18 @@ import com.example.mf.pf2.ReportsResponse
 import com.example.mf.pf2.network.SpendingsAPI
 import com.google.android.gms.maps.model.LatLng
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class ReportsViewModel : ViewModel(){
 
     var reports : MutableLiveData<List<List<Int>>> = MutableLiveData()
-    lateinit var disposable: Disposable
+    lateinit var disposable: CompositeDisposable
 
     fun fetchReports(spendingsAPI: SpendingsAPI){
-        disposable = spendingsAPI.getReports()
+        disposable = CompositeDisposable()
+        disposable.add(spendingsAPI.getReports()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -24,9 +26,10 @@ class ReportsViewModel : ViewModel(){
                     }
                     reports.postValue(list)
                 })
+        )
     }
 
     fun destroy() {
-        disposable.dispose()
+        disposable!!.dispose()
     }
 }
