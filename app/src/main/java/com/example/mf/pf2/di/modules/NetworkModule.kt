@@ -1,4 +1,4 @@
-package com.example.mf.pf2.di
+package com.example.mf.pf2.di.modules
 
 import com.example.mf.pf2.network.SpendingsService
 import dagger.Module
@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetworkModule{
+class NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
@@ -21,7 +21,7 @@ class NetworkModule{
 
     @Provides
     @Singleton
-    fun provideSpendingsService(retrofit: Retrofit) : SpendingsService{
+    fun provideSpendingsService(retrofit: Retrofit): SpendingsService {
         return retrofit.create(SpendingsService::class.java)
     }
 

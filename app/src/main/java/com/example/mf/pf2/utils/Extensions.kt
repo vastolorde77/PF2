@@ -18,25 +18,25 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-fun <T> androidLazy(initializer: () -> T) : Lazy<T> = lazy(LazyThreadSafetyMode.NONE, initializer)
+fun <T> androidLazy(initializer: () -> T): Lazy<T> = lazy(LazyThreadSafetyMode.NONE, initializer)
 
 inline fun <reified T : ViewModel> Fragment.getViewModel(viewModelFactory: ViewModelProvider.Factory): T =
         ViewModelProviders.of(this, viewModelFactory)[T::class.java]
 
-fun ImageView.loadImg(drawable: Drawable){
+fun ImageView.loadImg(drawable: Drawable) {
     Glide.with(context).load(drawable).into(this)
 }
 
-fun Int.toNumberFormatted() : String{
+fun Int.toNumberFormatted(): String {
     return NumberFormat.getNumberInstance().format(this)
 }
 
-fun Int.toCurrency() : String{
+fun Int.toCurrency(): String {
     return "Rp." + this.toNumberFormatted()
 }
 
 fun Date.toSimpleDateFormat(): String? {
-    return SimpleDateFormat("HH:mm:ss dd-MM-yyyy",Locale.US).format(this.time*1000L)
+    return SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.US).format(this.time * 1000L)
 }
 
 inline fun <reified T : Any> Activity.launchActivity(
@@ -57,6 +57,7 @@ fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
+
 
 //fun Fragment.hideKeyboard() {
 //    activity.hideKeyboard(view)

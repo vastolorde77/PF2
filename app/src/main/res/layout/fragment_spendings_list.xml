@@ -54,17 +54,21 @@
         app:lottie_loop="true"
         app:lottie_autoPlay="true"
         android:padding="100dp" />
-
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/list"
-        android:name="com.example.mf.pf2.SpendingsFragment"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_spendings"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".ui.fragments.SpendingsFragment"
-        tools:listitem="@layout/fragment_spendings">
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/list"
+            android:name="com.example.mf.pf2.SpendingsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".ui.fragments.SpendingsFragment"
+            tools:listitem="@layout/fragment_spendings">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

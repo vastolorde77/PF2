@@ -1,16 +1,20 @@
 package com.example.mf.pf2
 
+import android.app.Activity
 import android.app.Application
-import com.example.mf.pf2.di.ActivityComponent
-import com.example.mf.pf2.di.AppModule
-import com.example.mf.pf2.di.DaggerActivityComponent
+import com.example.mf.pf2.di.AppInjector
 import com.squareup.leakcanary.LeakCanary
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
-class BaseApplication : Application() {
+class BaseApplication : Application(), HasActivityInjector {
 
-    companion object {
-        lateinit var activityComponent: ActivityComponent
-    }
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+
+    override fun activityInjector() = dispatchingAndroidInjector
+
 
     override fun onCreate() {
         super.onCreate()
@@ -18,12 +22,12 @@ class BaseApplication : Application() {
         this.initializeLeakDetection()
     }
 
-    fun initializeDependencyInjection(){
-        activityComponent = DaggerActivityComponent.builder().appModule(AppModule(this)).build()
+    fun initializeDependencyInjection() {
+        AppInjector.init(this)
     }
 
-    fun initializeLeakDetection(){
-        if (LeakCanary.isInAnalyzerProcess(this)){
+    fun initializeLeakDetection() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
             return
         }
         LeakCanary.install(this)

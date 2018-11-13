@@ -5,12 +5,12 @@ import java.util.*
 
 
 data class Spendings(
-        val type : String = "",
-        val amount : Int = 0,
+        val type: String = "",
+        val amount: Int = 0,
         val product: String = "No Product",
         val date: Date = Date(),
-        val location: Pair<Double,Double> = Pair(0.toDouble(),0.toDouble())
-        )
+        val location: Pair<Double, Double> = Pair(0.toDouble(), 0.toDouble())
+)
 
 data class SpendingsResponse(
         @field:Json(name = "type") val type: String,
@@ -21,5 +21,5 @@ data class SpendingsResponse(
 )
 
 data class ReportsResponse(
-        @field:Json(name = "report") val reports : List<Int>
+        @field:Json(name = "report") val reports: List<Int>
 )

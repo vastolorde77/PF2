@@ -21,25 +21,11 @@ class SpendingsRecyclerViewAdapter
 
     private var expandedPosition = -1
     private var spendings: List<Spendings> = ArrayList()
-    private lateinit var context : Context
+    private lateinit var context: Context
     private val drawables = Constants.mockThumbnails
+
     init {
         spendings = ArrayList()
-    }
-
-    fun addSpendings(list: List<Spendings>) {
-        spendings += list
-        notifyDataSetChanged()
-    }
-
-    private fun onExpand(position: Int){
-        expandedPosition = if (position == expandedPosition) -1 else position
-        notifyItemChanged(expandedPosition)
-    }
-
-    private fun setExpanded(position: Int) : Int{
-        if (position == expandedPosition) return View.VISIBLE
-        return View.GONE
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -51,6 +37,10 @@ class SpendingsRecyclerViewAdapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = spendings[position]
+        initViewHolder(holder, item, position)
+    }
+
+    private fun SpendingsRecyclerViewAdapter.initViewHolder(holder: ViewHolder, item: Spendings, position: Int) {
         with(holder.mView) {
             amount.text = item.amount.toCurrency()
             product.text = item.product
@@ -64,6 +54,21 @@ class SpendingsRecyclerViewAdapter
             setOnClickListener({ onExpand(position) })
         }
     }
+    fun addSpendings(list: List<Spendings>) {
+        spendings += list
+        notifyDataSetChanged()
+    }
+
+    private fun onExpand(position: Int) {
+        expandedPosition = if (position == expandedPosition) -1 else position
+        notifyItemChanged(expandedPosition)
+    }
+
+    private fun setExpanded(position: Int): Int {
+        if (position == expandedPosition) return View.VISIBLE
+        return View.GONE
+    }
+
 
     override fun getItemCount(): Int = spendings.size
 
