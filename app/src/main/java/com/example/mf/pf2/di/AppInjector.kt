@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import com.example.mf.pf2.BaseApplication
 import com.example.mf.pf2.di.components.DaggerAppComponent
-import com.example.mf.pf2.ui.activities.AddSpendingsActivity
 import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
@@ -42,10 +41,7 @@ object AppInjector {
     }
 
     private fun handleActivity(activity: Activity?) {
-        if (activity is AddSpendingsActivity) {
-            AndroidInjection.inject(activity)
-        }
-        if (activity is HasSupportFragmentInjector) {
+        if (activity is HasSupportFragmentInjector || activity is Injectable) {
             AndroidInjection.inject(activity)
         }
         if (activity is FragmentActivity) {

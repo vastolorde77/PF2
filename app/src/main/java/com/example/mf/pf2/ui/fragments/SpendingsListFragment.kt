@@ -21,11 +21,11 @@ import com.example.mf.pf2.utils.toCurrency
 import com.example.mf.pf2.viewmodel.SpendingsState
 import com.example.mf.pf2.viewmodel.SpendingsViewModel
 import kotlinx.android.synthetic.main.fragment_spendings_list.*
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 
 class SpendingsListFragment : Fragment(), FragmentInteractor, Injectable {
-
     private var columnCount = 1
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -48,6 +48,11 @@ class SpendingsListFragment : Fragment(), FragmentInteractor, Injectable {
         // Set the adapter
         setAdapter()
 
+        // Handle Refresh
+        refresh_spendings.setOnRefreshListener {
+            viewModel.fetchSpendings()
+            context!!.toast("REFRESHED")
+        }
         // Observe Changes
         observe()
 
@@ -108,6 +113,7 @@ class SpendingsListFragment : Fragment(), FragmentInteractor, Injectable {
                         .setAction("Try Again") { viewModel.fetchSpendings() }
             }
         }
+        refresh_spendings.isRefreshing = false
     }
 
 

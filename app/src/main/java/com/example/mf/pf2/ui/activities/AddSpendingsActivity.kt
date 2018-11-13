@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.example.mf.pf2.R
 import com.example.mf.pf2.Spendings
+import com.example.mf.pf2.di.Injectable
 import com.example.mf.pf2.utils.hideKeyboard
 import com.example.mf.pf2.utils.launchActivity
 import com.example.mf.pf2.viewmodel.SpendingsViewModel
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_add_spendings.*
 import kotlinx.android.synthetic.main.content_add_spendings.*
 import javax.inject.Inject
 
-class AddSpendingsActivity : AppCompatActivity() {
+class AddSpendingsActivity : AppCompatActivity(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -57,7 +58,7 @@ class AddSpendingsActivity : AppCompatActivity() {
         })
         // BUTTONS
         add_spendings_button.setOnClickListener {
-            it?.hideKeyboard()
+            it.hideKeyboard()
             add_spendings_content.visibility = View.INVISIBLE
             add_spendings_loader.visibility = View.VISIBLE
             viewModel.postSpending(Spendings(

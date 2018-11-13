@@ -9,6 +9,7 @@ class SpendingsAPITest{
 
     //TODO Create Test Cases
 
+
     @Test
     fun getSpendings() {
     }

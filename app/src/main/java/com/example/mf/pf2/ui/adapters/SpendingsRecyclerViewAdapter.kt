@@ -20,13 +20,10 @@ class SpendingsRecyclerViewAdapter
     : RecyclerView.Adapter<SpendingsRecyclerViewAdapter.ViewHolder>() {
 
     private var expandedPosition = -1
-    private var spendings: List<Spendings> = ArrayList()
+    private var spendings: MutableList<Spendings> = ArrayList()
     private lateinit var context: Context
     private val drawables = Constants.mockThumbnails
 
-    init {
-        spendings = ArrayList()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -51,17 +48,19 @@ class SpendingsRecyclerViewAdapter
 
             //Expanded Item
             expandedItem.visibility = setExpanded(position)
-            setOnClickListener({ onExpand(position) })
+            setOnClickListener { onExpand(position) }
         }
     }
     fun addSpendings(list: List<Spendings>) {
-        spendings += list
+        spendings.clear()
+        spendings.addAll(list)
         notifyDataSetChanged()
     }
 
     private fun onExpand(position: Int) {
         expandedPosition = if (position == expandedPosition) -1 else position
-        notifyItemChanged(expandedPosition)
+//        notifyItemChanged(expandedPosition)
+        notifyItemChanged(position)
     }
 
     private fun setExpanded(position: Int): Int {
