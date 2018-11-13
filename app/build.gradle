@@ -9,6 +9,9 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
+    lintOptions{
+        abortOnError false
+    }
     defaultConfig {
         applicationId "com.example.mf.pf2"
         minSdkVersion 24
